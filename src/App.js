@@ -3,8 +3,14 @@ import { TodoCounter } from './TodoCounter';
 import { TodoSearch } from './TodoSearch';
 import { TodoList } from './TodoList';
 import { CreateTodoButton } from './CreateTodoButton';
+import { TodoItem } from './TodoItem';
 import './App.css';
 
+const todos = [
+  { text: 'Curso React', completed: false },
+  { text: 'Estructuras de Datos', completed: false },
+  { text: 'Algoritmos', completed: false },
+]
 
 
 
@@ -17,7 +23,11 @@ function App() {
         
       <TodoSearch />
         
-      <TodoList />
+      <TodoList>
+        {todos.map((todo, index) => (
+          <TodoItem key={index} text={todo.text} />
+        ))}
+      </ TodoList>
 
       <CreateTodoButton />
         
