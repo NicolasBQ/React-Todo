@@ -29,6 +29,7 @@ function App() {
     searchedTodos = todos;
   }
 
+
   return (
     <React.Fragment> 
       <TodoCounter 
@@ -46,7 +47,11 @@ function App() {
           <TodoItem 
             key={index}
             text={todo.text}
-            completed={todo.completed} />
+            completed={todo.completed} 
+            todos={todos}
+            setTodos={setTodos}
+            index={index}
+          />
         ))}
       </ TodoList>
 

@@ -2,19 +2,27 @@ import React from "react";
 import './TodoItem.css';
 
 const TodoItem = (props) => {
-    const onCompleteItem = () => {
-        alert('Completaste la tarea ' + props.text);
-    }
+    const completeTodo = (id) => {
+        const newTodo = [...props.todos];
+        if(newTodo[id].completed) {
+          newTodo[id].completed = false;
+        } else {
+          newTodo[id].completed = true;
+        }
+        props.setTodos(newTodo);
+      }
 
-    const onDeleteItem = () => {
-        alert('Eliminaste la tarea ' + props.text);
+    const deleteTodo = (id) => {
+        const newTodo = [...props.todos];
+        newTodo.splice(id, 1);
+        props.setTodos(newTodo);
     }
 
     return(
         <li className="TodoItem">
             <span 
                 className={`Icon Icon-check ${props.completed && 'Icon-check--active'}`}
-                onClick={onCompleteItem}
+                onClick={() => completeTodo(props.index)}
             >
                 √
             </span>    
@@ -25,7 +33,7 @@ const TodoItem = (props) => {
             </p>
             <span 
                 className="Icon Icon-delete"
-                onClick={onDeleteItem}
+                onClick={() => deleteTodo(props.index)}
             >
                 X
             </span>
