@@ -6,23 +6,43 @@ import { CreateTodoButton } from './CreateTodoButton';
 import { TodoItem } from './TodoItem';
 // import './App.css';
 
-const todos = [
+const defaultTodos = [
   { text: 'Curso React', completed: true },
   { text: 'Estructuras de Datos', completed: false },
-  { text: 'Algoritmos', completed: false },
+  { text: 'Algoritmos', completed: true },
 ]
 
 // React.Fragment -> Etiqueta invisible
 
 function App() {
+  const [todos, setTodos] = React.useState(defaultTodos);
+  const [searchValue, setSearchValue] = React.useState('');
+
+  const completedTodos = todos.filter(todo => !!todo.completed).length;
+  const totalTodos = todos.length;
+
+  let searchedTodos = [];
+
+  if(searchValue.length > 0) {
+    searchedTodos = todos.filter(todo => todo.text.toLowerCase().indexOf(searchValue.toLowerCase()) > -1);
+  } else {
+    searchedTodos = todos;
+  }
+
   return (
     <React.Fragment> 
-      <TodoCounter />
+      <TodoCounter 
+        completedTodos={completedTodos}
+        totalTodos={totalTodos}
+      />
         
-      <TodoSearch />
+      <TodoSearch 
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
         
       <TodoList>
-        {todos.map((todo, index) => (
+        {searchedTodos.map((todo, index) => (
           <TodoItem 
             key={index}
             text={todo.text}
