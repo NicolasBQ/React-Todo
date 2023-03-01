@@ -4,15 +4,13 @@ import { TodoSearch } from './TodoSearch';
 import { TodoList } from './TodoList';
 import { CreateTodoButton } from './CreateTodoButton';
 import { TodoItem } from './TodoItem';
-import './App.css';
+// import './App.css';
 
 const todos = [
-  { text: 'Curso React', completed: false },
+  { text: 'Curso React', completed: true },
   { text: 'Estructuras de Datos', completed: false },
   { text: 'Algoritmos', completed: false },
 ]
-
-
 
 // React.Fragment -> Etiqueta invisible
 
@@ -25,7 +23,10 @@ function App() {
         
       <TodoList>
         {todos.map((todo, index) => (
-          <TodoItem key={index} text={todo.text} />
+          <TodoItem 
+            key={index}
+            text={todo.text}
+            completed={todo.completed} />
         ))}
       </ TodoList>
 
