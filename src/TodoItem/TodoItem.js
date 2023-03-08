@@ -2,6 +2,12 @@ import React from "react";
 import './TodoItem.css';
 
 const TodoItem = (props) => {
+
+    const saveTodos = (newTodo) => {
+        localStorage.setItem('TODOS_V1', JSON.stringify(newTodo));
+        props.setTodos(newTodo);
+    }
+
     const completeTodo = (id) => {
         const newTodo = [...props.todos];
         if(newTodo[id].completed) {
@@ -9,13 +15,13 @@ const TodoItem = (props) => {
         } else {
           newTodo[id].completed = true;
         }
-        props.setTodos(newTodo);
+        saveTodos(newTodo);
       }
 
     const deleteTodo = (id) => {
         const newTodo = [...props.todos];
         newTodo.splice(id, 1);
-        props.setTodos(newTodo);
+        saveTodos(newTodo);
     }
 
     return(
