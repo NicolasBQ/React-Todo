@@ -2,9 +2,9 @@ import React from 'react';
 import { AppUI } from './AppUI';
 
 // const defaultTodos = [
-//   { text: 'Curso React', completed: true },
-//   { text: 'Estructuras de Datos', completed: false },
-//   { text: 'Algoritmos', completed: true },
+//   { id: 0, text: 'Curso React', completed: true },
+//   { id: 1, text: 'Estructuras de Datos', completed: false },
+//   { id: 2, text: 'Algoritmos', completed: true },
 // ]
 
 // React.Fragment -> Etiqueta invisible
@@ -34,14 +34,38 @@ function App() {
     searchedTodos = todos;
   }
 
+  const saveTodos = (newTodo) => {
+    localStorage.setItem('TODOS_V1', JSON.stringify(newTodo));
+    setTodos(newTodo);
+  }
+
+  const completeTodo = (id) => {
+    console.log(id);
+    const newTodo = [...todos];
+    if(newTodo[id].completed) {
+      newTodo[id].completed = false;
+    } else {
+      newTodo[id].completed = true;
+    }
+    saveTodos(newTodo);
+  }
+
+  const deleteTodo = (id) => {
+      console.log(id);
+      const newTodo = [...todos];
+      newTodo.splice(id, 1);
+      saveTodos(newTodo);
+  }
+
   return (
     <AppUI 
           totalTodos={totalTodos}
           completedTodos={completedTodos}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-          searchedTodos={searchedTodos}      
-          setTodos={setTodos}
+          searchedTodos={searchedTodos}
+          completeTodo={completeTodo}
+          deleteTodo={deleteTodo}      
           todos={todos}
     />
   );

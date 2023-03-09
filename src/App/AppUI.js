@@ -12,6 +12,8 @@ const AppUI = ({
     searchValue,
     setSearchValue,
     searchedTodos,
+    completeTodo,
+    deleteTodo,
     todos,
     setTodos,   
 }) => {
@@ -35,7 +37,8 @@ const AppUI = ({
               completed={todo.completed} 
               todos={todos}
               setTodos={setTodos}
-              index={index}
+              completeTodo={() => completeTodo(todo.id)}
+              deleteTodo={() => deleteTodo(todo.id)}
             />
           ))}
         </ TodoList>
