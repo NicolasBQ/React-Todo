@@ -9,18 +9,28 @@ import { AppUI } from './AppUI';
 
 // React.Fragment -> Etiqueta invisible
 
-function App() {
-  const localStorageTodos = localStorage.getItem('TODOS_V1');
-  let parsedTodos;
-  if(!localStorageTodos) {
-    localStorage.setItem('TODOS_V1', JSON.stringify([]));
-    parsedTodos = [];
+const useLocalStorage = (itemName, initialValue) => {
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
+  if(!localStorageItem) {
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   } else {
-    parsedTodos = JSON.parse(localStorage.getItem('TODOS_V1'));
+    parsedItem = JSON.parse(localStorage.getItem(itemName));
   }
 
+  const [item, setItem] = React.useState(parsedItem);
 
-  const [todos, setTodos] = React.useState(parsedTodos);
+  const saveItem = (newTodo) => {
+    localStorage.setItem(itemName, JSON.stringify(newTodo));
+    setItem(newTodo);
+  }
+
+  return [item, saveItem];
+}
+
+function App() {
+  const [todos, saveItem] = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => !!todo.completed).length;
@@ -34,11 +44,6 @@ function App() {
     searchedTodos = todos;
   }
 
-  const saveTodos = (newTodo) => {
-    localStorage.setItem('TODOS_V1', JSON.stringify(newTodo));
-    setTodos(newTodo);
-  }
-
   const completeTodo = (id) => {
     console.log(id);
     const newTodo = [...todos];
@@ -47,14 +52,14 @@ function App() {
     } else {
       newTodo[id].completed = true;
     }
-    saveTodos(newTodo);
+    saveItem(newTodo);
   }
 
   const deleteTodo = (id) => {
       console.log(id);
       const newTodo = [...todos];
       newTodo.splice(id, 1);
-      saveTodos(newTodo);
+      saveItem(newTodo);
   }
 
   return (
