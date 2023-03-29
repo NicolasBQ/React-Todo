@@ -10,27 +10,57 @@ import { AppUI } from './AppUI';
 // React.Fragment -> Etiqueta invisible
 
 const useLocalStorage = (itemName, initialValue) => {
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
-  if(!localStorageItem) {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  } else {
-    parsedItem = JSON.parse(localStorage.getItem(itemName));
-  }
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
+  const [item, setItem] = React.useState(initialValue);
 
-  const [item, setItem] = React.useState(parsedItem);
+  React.useEffect(() => {
+    setTimeout(() => {
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
+        if(!localStorageItem) {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        } else {
+          parsedItem = JSON.parse(localStorage.getItem(itemName));
+        }
+  
+        setItem(parsedItem);
+        setLoading(false);
+      } catch(error) {
+        setError(error);
+      }
+
+    }, 1000);
+  })
+ 
 
   const saveItem = (newTodo) => {
-    localStorage.setItem(itemName, JSON.stringify(newTodo));
-    setItem(newTodo);
+    try {
+      localStorage.setItem(itemName, JSON.stringify(newTodo));
+      setItem(newTodo);
+    } catch(error) {
+      setError(error);
+    }
+
   }
 
-  return [item, saveItem];
+  return {
+    item,
+    saveItem,
+    loading,
+    error
+  }
 }
 
 function App() {
-  const [todos, saveItem] = useLocalStorage('TODOS_V1', []);
+  const {
+    item: todos,
+    saveItem,
+    loading,
+    error
+  } = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => !!todo.completed).length;
@@ -45,7 +75,6 @@ function App() {
   }
 
   const completeTodo = (id) => {
-    console.log(id);
     const newTodo = [...todos];
     if(newTodo[id].completed) {
       newTodo[id].completed = false;
@@ -56,7 +85,6 @@ function App() {
   }
 
   const deleteTodo = (id) => {
-      console.log(id);
       const newTodo = [...todos];
       newTodo.splice(id, 1);
       saveItem(newTodo);
@@ -64,6 +92,8 @@ function App() {
 
   return (
     <AppUI 
+          loading={loading}
+          error={error}
           totalTodos={totalTodos}
           completedTodos={completedTodos}
           searchValue={searchValue}

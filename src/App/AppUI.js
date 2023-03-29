@@ -7,6 +7,8 @@ import { TodoItem } from '../TodoItem/TodoItem';
 
 
 const AppUI = ({
+    error,
+    loading,
     totalTodos,
     completedTodos,
     searchValue,
@@ -30,6 +32,10 @@ const AppUI = ({
         />
           
         <TodoList>
+          {error && <p>Hubo un error</p>}
+          {loading && <p>La página está cargando</p>}
+          {!loading && !searchedTodos.lenght && <p>Crea tu primer todo!</p>}
+
           {searchedTodos.map((todo, index) => (
             <TodoItem 
               key={index}
