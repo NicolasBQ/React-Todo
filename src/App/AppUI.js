@@ -8,32 +8,38 @@ import { TodoContext } from '../TodoContext/TodoContext';
 
 
 const AppUI = () => {
+    const {
+      error,
+      loading,
+      searchedTodos,
+      todos,
+      setTodos,
+      completeTodo,
+      deleteTodo
+    } = React.useContext(TodoContext);
+
     return (
       <React.Fragment> 
         <TodoCounter />
         <TodoSearch />
           
-        <TodoContext.Consumer>
-          {({ error, loading, searchedTodos, todos, setTodos, completeTodo, deleteTodo }) => (
-            <TodoList>
-              {error && <p>Hubo un error</p>}
-              {loading && <p>La página está cargando</p>}
-              {!loading && !searchedTodos.lenght && <p>Crea tu primer todo!</p>}
-    
-              {searchedTodos.map((todo, index) => (
-                <TodoItem 
-                  key={index}
-                  text={todo.text}
-                  completed={todo.completed} 
-                  todos={todos}
-                  setTodos={setTodos}
-                  completeTodo={() => completeTodo(todo.id)}
-                  deleteTodo={() => deleteTodo(todo.id)}
-                />
-              ))}
-            </ TodoList>
-          )}
-        </TodoContext.Consumer>
+        <TodoList>
+          {error && <p>Hubo un error</p>}
+          {loading && <p>La página está cargando</p>}
+          {!loading && !searchedTodos.lenght && <p>Crea tu primer todo!</p>}
+
+          {searchedTodos.map((todo, index) => (
+            <TodoItem 
+              key={index}
+              text={todo.text}
+              completed={todo.completed} 
+              todos={todos}
+              setTodos={setTodos}
+              completeTodo={() => completeTodo(todo.id)}
+              deleteTodo={() => deleteTodo(todo.id)}
+            />
+          ))}
+        </ TodoList>
 
         <CreateTodoButton />
         
