@@ -25,13 +25,23 @@ const TodoProvider = (props) => {
         searchedTodos = todos;
     }
 
-    const completeTodo = (id) => {
-    const newTodo = [...todos];
-    if(newTodo[id].completed) {
-        newTodo[id].completed = false;
-    } else {
-        newTodo[id].completed = true;
+    const addTodo = (text) => {
+        const newTodo = [...todos];
+        newTodo.push({
+            completed: false,
+            text: text
+        });
+
+        saveItem(newTodo);
     }
+
+    const completeTodo = (id) => {
+        const newTodo = [...todos];
+        if(newTodo[id].completed) {
+            newTodo[id].completed = false;
+        } else {
+            newTodo[id].completed = true;
+        }
         saveItem(newTodo);
     }
 
@@ -50,6 +60,7 @@ const TodoProvider = (props) => {
             searchValue,
             setSearchValue,
             searchedTodos,
+            addTodo,
             completeTodo,
             deleteTodo,      
             todos,

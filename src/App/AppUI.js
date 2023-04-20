@@ -4,6 +4,7 @@ import { TodoSearch } from '../TodoSearch/TodoSearch';
 import { TodoList } from '../TodoList/TodoList';
 import { CreateTodoButton } from '../CreateTodoBtn/CreateTodoButton';
 import { TodoItem } from '../TodoItem/TodoItem';
+import { TodoForm } from '../TodoForm/TodoForm';
 import { TodoContext } from '../TodoContext/TodoContext';
 import { Modal } from '../Modal/Modal';
 
@@ -47,13 +48,12 @@ const AppUI = () => {
         {
           openModal && (
             <Modal>
-              <p>{!searchedTodos ? 'No hay searched todos' : 'Si hay searched todos'}</p>
+              <TodoForm />
             </Modal>
           )
         }
 
         <CreateTodoButton 
-          openModal = {openModal}
           setOpenModal = {setOpenModal}
         />
         
