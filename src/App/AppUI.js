@@ -39,8 +39,8 @@ const AppUI = () => {
               completed={todo.completed} 
               todos={todos}
               setTodos={setTodos}
-              completeTodo={() => completeTodo(todo.id)}
-              deleteTodo={() => deleteTodo(todo.id)}
+              completeTodo={() => completeTodo(index)}
+              deleteTodo={() => deleteTodo(index)}
             />
           ))}
         </ TodoList>

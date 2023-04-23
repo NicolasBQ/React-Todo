@@ -31,7 +31,7 @@ const TodoProvider = (props) => {
             completed: false,
             text: text
         });
-
+        console.log(newTodo);
         saveItem(newTodo);
     }
 
@@ -42,6 +42,7 @@ const TodoProvider = (props) => {
         } else {
             newTodo[id].completed = true;
         }
+        console.log(newTodo);
         saveItem(newTodo);
     }
 
