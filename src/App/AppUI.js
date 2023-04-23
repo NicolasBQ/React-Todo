@@ -7,6 +7,7 @@ import { TodoItem } from '../TodoItem/TodoItem';
 import { TodoForm } from '../TodoForm/TodoForm';
 import { TodoContext } from '../TodoContext/TodoContext';
 import { Modal } from '../Modal/Modal';
+import { EmptyState } from '../EmptyState/EmptyState';
 
 
 const AppUI = () => {
@@ -30,7 +31,10 @@ const AppUI = () => {
         <TodoList>
           {error && <p>Hubo un error</p>}
           {loading && <p>La página está cargando</p>}
-          {!loading && !searchedTodos.lenght && <p>Crea tu primer todo!</p>}
+          {
+            !loading && !searchedTodos.lenght &&
+            <EmptyState />
+          }
 
           {searchedTodos.map((todo, index) => (
             <TodoItem 
