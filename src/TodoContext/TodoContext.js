@@ -14,6 +14,7 @@ const TodoProvider = (props) => {
     const [searchValue, setSearchValue] = React.useState('');
     const [openModal, setOpenModal] = React.useState(false);
 
+
     const completedTodos = todos.filter(todo => !!todo.completed).length;
     const totalTodos = todos.length;
 
@@ -31,7 +32,6 @@ const TodoProvider = (props) => {
             completed: false,
             text: text
         });
-        console.log(newTodo);
         saveItem(newTodo);
     }
 
@@ -42,7 +42,6 @@ const TodoProvider = (props) => {
         } else {
             newTodo[id].completed = true;
         }
-        console.log(newTodo);
         saveItem(newTodo);
     }
 
@@ -66,7 +65,7 @@ const TodoProvider = (props) => {
             deleteTodo,      
             todos,
             openModal,
-            setOpenModal
+            setOpenModal,
         }}>
             {props.children}
         </TodoContext.Provider>

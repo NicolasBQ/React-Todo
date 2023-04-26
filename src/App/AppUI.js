@@ -20,9 +20,10 @@ const AppUI = () => {
       completeTodo,
       deleteTodo,
       openModal,
-      setOpenModal
+      setOpenModal,
     } = React.useContext(TodoContext);
 
+    let todosArr = [...searchedTodos];
     return (
       <React.Fragment> 
         <TodoCounter />
@@ -32,11 +33,11 @@ const AppUI = () => {
           {error && <p>Hubo un error</p>}
           {loading && <p>La página está cargando</p>}
           {
-            !loading && !searchedTodos.lenght &&
-            <EmptyState />
+            !todosArr.length && !loading && <EmptyState />
           }
 
-          {searchedTodos.map((todo, index) => (
+          { 
+            searchedTodos.map((todo, index) => (
             <TodoItem 
               key={index}
               text={todo.text}
