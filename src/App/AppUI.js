@@ -8,6 +8,7 @@ import { TodoForm } from '../TodoForm/TodoForm';
 import { TodoContext } from '../TodoContext/TodoContext';
 import { Modal } from '../Modal/Modal';
 import { EmptyState } from '../EmptyState/EmptyState';
+import { ErrorState } from '../ErrorState/ErrorState'
 
 
 const AppUI = () => {
@@ -30,10 +31,10 @@ const AppUI = () => {
         <TodoSearch />
           
         <TodoList>
-          {error && <p>Hubo un error</p>}
+          {error && <ErrorState />}
           {loading && <p>La página está cargando</p>}
           {
-            !todosArr.length && !loading && <EmptyState />
+            !todosArr.length && !loading && !error && <EmptyState />
           }
 
           { 

@@ -2,7 +2,7 @@ import React from "react";
 import './EmptyState.css';
 import image from './emptyState.svg';
 
-const EmptyState = (props) => {
+const EmptyState = () => {
     return (
         <div className="emptyContainer">
             <img src={image} className="image"></img>
