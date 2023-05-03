@@ -9,6 +9,7 @@ import { TodoContext } from '../TodoContext/TodoContext';
 import { Modal } from '../Modal/Modal';
 import { EmptyState } from '../EmptyState/EmptyState';
 import { ErrorState } from '../ErrorState/ErrorState'
+import { LoadingSkeleton } from '../LoadingSkeleton/LoadingSkeleton';
 
 
 const AppUI = () => {
@@ -32,7 +33,7 @@ const AppUI = () => {
           
         <TodoList>
           {error && <ErrorState />}
-          {loading && <p>La página está cargando</p>}
+          {loading && <LoadingSkeleton cards={5}/>}
           {
             !todosArr.length && !loading && !error && <EmptyState />
           }
