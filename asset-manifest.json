@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/React-Todo/static/css/main.bc396e97.css",
+    "main.js": "/React-Todo/static/js/main.7704410d.js",
+    "static/media/emptyState.svg": "/React-Todo/static/media/emptyState.049ae0afc3bcdbb2bcde7e07807af781.svg",
+    "index.html": "/React-Todo/index.html",
+    "static/media/error.svg": "/React-Todo/static/media/error.dc5f4d982075421954269cd8a1912959.svg",
+    "main.bc396e97.css.map": "/React-Todo/static/css/main.bc396e97.css.map",
+    "main.7704410d.js.map": "/React-Todo/static/js/main.7704410d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc396e97.css",
+    "static/js/main.7704410d.js"
+  ]
+}
